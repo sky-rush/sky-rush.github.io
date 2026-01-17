@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyRush</title>
+    <style>
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .lang-btn.active {
+            border-color: #74b9ff;
+            background: rgba(116, 185, 255, 0.1);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .version {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #27ae60;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+
+        .download-btn:hover {
+            background: #219a52;
+        }
+
+        .download-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .center {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .control-group {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+        }
+
+        .control-group h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .control-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+        }
+
+        .key {
+            background: #3498db;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        .platforms {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .platform {
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            color: white;
+        }
+
+        .orange { background: #e67e22; }
+        .blue { background: #3498db; }
+        .brown { background: #8b4513; }
+        .gray { background: #95a5a6; }
+
+        .tips {
+            background: #d5f4e6;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .tips h3 {
+            color: #27ae60;
+            margin-top: 0;
+        }
+
+        .tip {
+            margin: 8px 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .controls,
+            .platforms {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lang-switcher">
+        <button class="lang-btn active" onclick="switchLang('fr')" id="fr-btn">🇫🇷</button>
+        <button class="lang-btn" onclick="switchLang('en')" id="en-btn">🇬🇧</button>
+    </div>
+
+    <div class="container">
+        <h1>SkyRush</h1>
+        <p class="version">Version 2026.01.17.4 - Par liveweeeb</p>
+
+        <div class="center">
+            <button class="download-btn" onclick="downloadGame()">
+                <span>Télécharger</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4a.5.5 0 0 1 1 0v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-4a.5.5 0 0 1 .5-.5zm7.5.5a.5.5 0 0 0 .5-.5V2.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 2.707V9.9a.5.5 0 0 0 .5.5z"/>
+                </svg>
+            </button>
+        </div>
+
+        <h2>C'est quoi ?</h2>
+        <p>Un petit jeu de saut de plateformes en 3D. Tu sautes de plateforme en plateforme, c'est simple mais ça devient vite addictif !</p>
+        <p><strong>Le but :</strong> Ne pas tomber et faire le meilleur score possible.</p>
+
+        <h2>Comment jouer</h2>
+        <div class="controls">
+            <div class="control-group">
+                <h3>Déplacement</h3>
+                <div class="control-item">
+                    <span>Avancer</span>
+                    <span class="key">W / Z</span>
+                </div>
+                <div class="control-item">
+                    <span>Reculer</span>
+                    <span class="key">S</span>
+                </div>
+                <div class="control-item">
+                    <span>Gauche/Droite</span>
+                    <span class="key">A-D / Q-D</span>
+                </div>
+                <div class="control-item">
+                    <span>Courir</span>
+                    <span class="key">Shift</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <h3>Actions</h3>
+                <div class="control-item">
+                    <span>Sauter</span>
+                    <span class="key">Espace</span>
+                </div>
+                
+                <div class="control-item">
+                    <span>S'accroupir</span>
+                    <span class="key">Ctrl</span>
+                </div>
+                <div class="control-item">
+                    <span>Aide</span>
+                    <span class="key">H</span>
+                </div>
+                <div class="control-item">
+                    <span>Debug</span>
+                    <span class="key">F3</span>
+                </div>
+            </div>
+        </div>
+
+        <h2>Les plateformes</h2>
+        <div class="platforms">
+            <div class="platform orange">
+                <h4>Orange</h4>
+                <p>Normale, stable</p>
+            </div>
+            <div class="platform blue">
+                <h4>Bleue</h4>
+                <p>Glissante</p>
+            </div>
+            <div class="platform brown">
+                <h4>Marron</h4>
+                <p>Mouvante et petite</p>
+            </div>
+            <div class="platform gray">
+                <h4>Grise</h4>
+                <p>Déjà visitée</p>
+            </div>
+        </div>
+
+
+
+        <div class="center">
+            <button class="download-btn" onclick="downloadGame()">
+                <span>Télécharger maintenant</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4a.5.5 0 0 1 1 0v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-4a.5.5 0 0 1 .5-.5zm7.5.5a.5.5 0 0 0 .5-.5V2.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 2.707V9.9a.5.5 0 0 0 .5.5z"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="footer">
+            <p>Créé avec ❤️ par liveweeeb • 2026</p>
+        </div>
+    </div>
+
+    <script>
+        function switchLang(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(lang + '-btn').classList.add('active');
+            
+            if (lang === 'en') {
+                document.querySelector('h1').innerHTML = 'SkyRush';
+                document.querySelector('.version').innerHTML = 'Version 2026.01.17.4 - By liveweeeb';
+                document.querySelector('.download-btn span').innerHTML = 'Download';
+                document.querySelectorAll('h2')[0].innerHTML = 'Hello! 👋';
+                document.querySelectorAll('p')[1].innerHTML = '<strong>The principle:</strong> You start on a platform and you have to reach the next one. Each new platform gives you a point. If you fall too low (-10), it\'s over. Simple but addictive! 😅';
+                document.querySelectorAll('h2')[1].innerHTML = 'How it works';
+                document.querySelectorAll('.control-group h3')[0].innerHTML = 'Movement';
+                document.querySelectorAll('.control-group h3')[1].innerHTML = 'Actions';
+                document.querySelectorAll('.control-item span')[0].innerHTML = 'Forward';
+                document.querySelectorAll('.control-item span')[2].innerHTML = 'Backward';
+                document.querySelectorAll('.control-item span')[4].innerHTML = 'Left/Right';
+                document.querySelectorAll('.control-item span')[6].innerHTML = 'Run';
+                document.querySelectorAll('.control-item span')[8].innerHTML = 'Jump';
+                document.querySelectorAll('.control-item span')[10].innerHTML = 'Crouch';
+                document.querySelectorAll('.control-item span')[12].innerHTML = 'Help';
+                document.querySelectorAll('.control-item span')[14].innerHTML = 'Debug';
+                document.querySelectorAll('h2')[2].innerHTML = 'Different platforms';
+                document.querySelectorAll('p')[2].innerHTML = 'At first it\'s easy with just orange platforms, but then it gets complicated...';
+                document.querySelectorAll('.platform h4')[0].innerHTML = '🟠 Orange';
+                document.querySelectorAll('.platform h4')[1].innerHTML = '🔵 Blue';
+                document.querySelectorAll('.platform h4')[2].innerHTML = '🟤 Brown';
+                document.querySelectorAll('.platform h4')[3].innerHTML = '⚪ Gray';
+                document.querySelectorAll('.platform p')[0].innerHTML = 'Classic, stable and safe';
+                document.querySelectorAll('.platform p')[1].innerHTML = 'Slippery! Crouch down';
+                document.querySelectorAll('.platform p')[2].innerHTML = 'Moves non-stop';
+                document.querySelectorAll('.platform p')[3].innerHTML = 'Already visited (0 point)';
+                document.querySelector('.tips h3').innerHTML = 'My little tips 😉';
+                document.querySelectorAll('.tip')[0].innerHTML = '• Look where you\'re going to land before jumping';
+                document.querySelectorAll('.tip')[1].innerHTML = '• Sprint helps for big jumps, but watch the landing';
+                document.querySelectorAll('.tip')[2].innerHTML = '• On blue platforms, stay crouched or you\'ll slide';
+                document.querySelectorAll('.tip')[3].innerHTML = '• For moving platforms, patience... timing is everything';
+                document.querySelectorAll('.tip')[4].innerHTML = '• If you miss, no worries! We learn by falling 🙃';
+                document.querySelectorAll('h2')[3].innerHTML = 'Practical info';
+                document.querySelectorAll('p')[3].innerHTML = '<strong>Made with:</strong> C# and Raylib (thanks Ramon!)<br><strong>Size:</strong> About 2-3 MB<br><strong>System:</strong> Windows only for now<br><strong>Installation:</strong> None! Download and launch';
+                document.querySelectorAll('p')[4].innerHTML = 'I also added an automatic update system, so you\'ll always have the latest version with bug fixes.';
+                document.querySelectorAll('.download-btn span')[1].innerHTML = 'Come on, let\'s test?';
+                document.querySelector('.footer p').innerHTML = 'Created with ❤️ by liveweeeb • 2026';
+            } else {
+                document.querySelector('h1').innerHTML = 'SkyRush';
+                document.querySelector('.version').innerHTML = 'Version 2026.01.17.4 - Par liveweeeb';
+                document.querySelector('.download-btn span').innerHTML = 'Télécharger le jeu';
+                document.querySelectorAll('h2')[0].innerHTML = 'Salut ! 👋';
+                document.querySelectorAll('p')[1].innerHTML = '<strong>Le principe :</strong> Tu commences sur une plateforme et tu dois atteindre la suivante. Chaque nouvelle plateforme te donne un point. Si tu tombes trop bas (-10), c\'est fini. Simple mais addictif ! 😅';
+                document.querySelectorAll('h2')[1].innerHTML = 'Comment ça marche';
+                document.querySelectorAll('.control-group h3')[0].innerHTML = 'Pour bouger';
+                document.querySelectorAll('.control-group h3')[1].innerHTML = 'Actions utiles';
+                document.querySelectorAll('.control-item span')[0].innerHTML = 'Avancer';
+                document.querySelectorAll('.control-item span')[2].innerHTML = 'Reculer';
+                document.querySelectorAll('.control-item span')[4].innerHTML = 'Gauche/Droite';
+                document.querySelectorAll('.control-item span')[6].innerHTML = 'Courir (plus loin)';
+                document.querySelectorAll('.control-item span')[8].innerHTML = 'Sauter';
+                document.querySelectorAll('.control-item span')[10].innerHTML = 'S\'accroupir';
+                document.querySelectorAll('.control-item span')[12].innerHTML = 'Aide en jeu';
+                document.querySelectorAll('.control-item span')[14].innerHTML = 'Debug';
+                document.querySelectorAll('h2')[2].innerHTML = 'Les différentes plateformes';
+                document.querySelectorAll('p')[2].innerHTML = 'Au début c\'est facile avec juste des plateformes orange, mais après ça se complique...';
+                document.querySelectorAll('.platform h4')[0].innerHTML = '🟠 Orange';
+                document.querySelectorAll('.platform h4')[1].innerHTML = '🔵 Bleue';
+                document.querySelectorAll('.platform h4')[2].innerHTML = '🟤 Marron';
+                document.querySelectorAll('.platform h4')[3].innerHTML = '⚪ Grise';
+                document.querySelectorAll('.platform p')[0].innerHTML = 'La classique, stable et sûre';
+                document.querySelectorAll('.platform p')[1].innerHTML = 'Glissante ! Accroupis-toi';
+                document.querySelectorAll('.platform p')[2].innerHTML = 'Elle bouge sans arrêt';
+                document.querySelectorAll('.platform p')[3].innerHTML = 'Déjà visitée (0 point)';
+                document.querySelector('.tips h3').innerHTML = 'Mes petits conseils 😉';
+                document.querySelectorAll('.tip')[0].innerHTML = '• Regarde bien où tu vas atterrir avant de sauter';
+                document.querySelectorAll('.tip')[1].innerHTML = '• Le sprint aide pour les gros sauts, mais attention à l\'atterrissage';
+                document.querySelectorAll('.tip')[2].innerHTML = '• Sur les plateformes bleues, reste accroupi sinon tu glisses';
+                document.querySelectorAll('.tip')[3].innerHTML = '• Pour les plateformes qui bougent, patience... timing is everything';
+                document.querySelectorAll('.tip')[4].innerHTML = '• Si tu rates, pas grave ! On apprend en tombant 🙃';
+                document.querySelectorAll('h2')[3].innerHTML = 'Infos pratiques';
+                document.querySelectorAll('p')[3].innerHTML = '<strong>Fait avec :</strong> C# et Raylib (merci Ramon !)<br><strong>Taille :</strong> Environ 2-3 MB<br><strong>Système :</strong> Windows uniquement pour l\'instant<br><strong>Installation :</strong> Aucune ! Tu télécharges et tu lances';
+                document.querySelectorAll('p')[4].innerHTML = 'J\'ai aussi ajouté un système de mise à jour automatique, comme ça tu auras toujours la dernière version avec les corrections de bugs.';
+                document.querySelectorAll('.download-btn span')[1].innerHTML = 'Allez, on teste ?';
+                document.querySelector('.footer p').innerHTML = 'Créé avec ❤️ par liveweeeb • 2026 • <a href="#" onclick="viewSource()" style="color: #74b9ff; text-decoration: none;">Code dispo sur GitHub</a>';
+            }
+        }
+
+        function downloadGame() {
+            window.open('https://github.com/liveweeeb13/SkyRush/releases/latest', '_blank');
+        }
+
+    </script>
+</body>
+</html>
