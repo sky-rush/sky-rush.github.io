@@ -152,7 +152,40 @@
         .orange { background: #e67e22; }
         .blue { background: #3498db; }
         .brown { background: #8b4513; }
+        .green { background: #27ae60; }
+        .violet { background: #9b59b6; }
         .gray { background: #95a5a6; }
+        
+        .items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .item-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        .item-icon img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+        
+        .item h4 {
+            color: #2c3e50;
+            margin: 10px 0;
+        }
 
         .tips {
             background: #d5f4e6;
@@ -213,9 +246,9 @@
             </button>
         </div>
 
-        <h2>C'est quoi ?</h2>
-        <p>Un petit jeu de saut de plateformes en 3D. Tu sautes de plateforme en plateforme, c'est simple mais ça devient vite addictif !</p>
-        <p><strong>Le but :</strong> Ne pas tomber et faire le meilleur score possible.</p>
+        <h2 id="what">C'est quoi ?</h2>
+        <p id="desc1">Un petit jeu de saut de plateformes en 3D. Tu sautes de plateforme en plateforme, c'est simple mais ça devient vite addictif !</p>
+        <p id="desc2"><strong>Le but :</strong> Ne pas tomber et faire le meilleur score possible.</p>
 
         <h2>Comment jouer</h2>
         <div class="controls">
@@ -272,16 +305,45 @@
             </div>
             <div class="platform brown">
                 <h4>Marron</h4>
-                <p>Mouvante et petite</p>
+                <p>Mouvante</p>
+            </div>
+            <div class="platform green">
+                <h4>Verte</h4>
+                <p>Disparait après 3 secondes</p>
+            </div>
+            <div class="platform violet">
+                <h4>Violette</h4>
+                <p>Contient un item</p>
             </div>
             <div class="platform gray">
                 <h4>Grise</h4>
                 <p>Déjà visitée</p>
             </div>
         </div>
+        
+        <h2>Les items</h2>
+        <div class="items">
+            <div class="item">
+                <div class="item-icon"><img src="spring.png" alt="Ressort"></div>
+                <h4>Ressort</h4>
+                <p>Propulse vers une plateforme plus haute après 2 secondes</p>
+            </div>
+            <div class="item">
+                <div class="item-icon"><img src="gem.png" alt="Ressort"></div>
 
+                <h4>Gemme</h4>
+                <p>+5 points</p>
+            </div>
+            <div class="item">
+                <div class="item-icon"><img src="star.png" alt="Ressort"></div>
 
-
+                <h4>Étoile</h4>
+                <p>x2 points pendant 10 secondes</p>
+            </div>
+        </div>
+    </div>
+             
+   
         <div class="center">
             <button class="download-btn" onclick="downloadGame()">
                 <span>Télécharger maintenant</span>
@@ -304,9 +366,11 @@
             if (lang === 'en') {
                 document.querySelector('h1').innerHTML = 'SkyRush';
                 document.querySelector('.version').innerHTML = 'Version 2026.01.17.4 - By liveweeeb';
-                document.querySelector('.download-btn span').innerHTML = 'Download';
-                document.querySelectorAll('h2')[0].innerHTML = 'Hello! 👋';
-                document.querySelectorAll('p')[1].innerHTML = '<strong>The principle:</strong> You start on a platform and you have to reach the next one. Each new platform gives you a point. If you fall too low (-10), it\'s over. Simple but addictive! 😅';
+                document.querySelectorAll('.download-btn span')[0].innerHTML = 'Download';
+                document.querySelectorAll('.download-btn span')[1].innerHTML = 'Download now';
+                document.getElementById('what').innerHTML = 'What is it?';
+                document.getElementById('desc1').innerHTML = 'A small 3D platform jumping game. You jump from platform to platform, it\'s simple but it gets addictive quickly!';
+                document.getElementById('desc2').innerHTML = '<strong>The goal:</strong> Don\'t fall and get the best score possible.';
                 document.querySelectorAll('h2')[1].innerHTML = 'How it works';
                 document.querySelectorAll('.control-group h3')[0].innerHTML = 'Movement';
                 document.querySelectorAll('.control-group h3')[1].innerHTML = 'Actions';
@@ -318,65 +382,67 @@
                 document.querySelectorAll('.control-item span')[10].innerHTML = 'Crouch';
                 document.querySelectorAll('.control-item span')[12].innerHTML = 'Help';
                 document.querySelectorAll('.control-item span')[14].innerHTML = 'Debug';
-                document.querySelectorAll('h2')[2].innerHTML = 'Different platforms';
-                document.querySelectorAll('p')[2].innerHTML = 'At first it\'s easy with just orange platforms, but then it gets complicated...';
-                document.querySelectorAll('.platform h4')[0].innerHTML = '🟠 Orange';
-                document.querySelectorAll('.platform h4')[1].innerHTML = '🔵 Blue';
-                document.querySelectorAll('.platform h4')[2].innerHTML = '🟤 Brown';
-                document.querySelectorAll('.platform h4')[3].innerHTML = '⚪ Gray';
-                document.querySelectorAll('.platform p')[0].innerHTML = 'Classic, stable and safe';
-                document.querySelectorAll('.platform p')[1].innerHTML = 'Slippery! Crouch down';
-                document.querySelectorAll('.platform p')[2].innerHTML = 'Moves non-stop';
-                document.querySelectorAll('.platform p')[3].innerHTML = 'Already visited (0 point)';
-                document.querySelector('.tips h3').innerHTML = 'My little tips 😉';
-                document.querySelectorAll('.tip')[0].innerHTML = '• Look where you\'re going to land before jumping';
-                document.querySelectorAll('.tip')[1].innerHTML = '• Sprint helps for big jumps, but watch the landing';
-                document.querySelectorAll('.tip')[2].innerHTML = '• On blue platforms, stay crouched or you\'ll slide';
-                document.querySelectorAll('.tip')[3].innerHTML = '• For moving platforms, patience... timing is everything';
-                document.querySelectorAll('.tip')[4].innerHTML = '• If you miss, no worries! We learn by falling 🙃';
-                document.querySelectorAll('h2')[3].innerHTML = 'Practical info';
-                document.querySelectorAll('p')[3].innerHTML = '<strong>Made with:</strong> C# and Raylib (thanks Ramon!)<br><strong>Size:</strong> About 2-3 MB<br><strong>System:</strong> Windows only for now<br><strong>Installation:</strong> None! Download and launch';
-                document.querySelectorAll('p')[4].innerHTML = 'I also added an automatic update system, so you\'ll always have the latest version with bug fixes.';
-                document.querySelectorAll('.download-btn span')[1].innerHTML = 'Come on, let\'s test?';
+                document.querySelectorAll('h2')[2].innerHTML = 'Platforms';
+                document.querySelectorAll('.platform h4')[0].innerHTML = 'Orange';
+                document.querySelectorAll('.platform h4')[1].innerHTML = 'Blue';
+                document.querySelectorAll('.platform h4')[2].innerHTML = 'Brown';
+                document.querySelectorAll('.platform h4')[3].innerHTML = 'Green';
+                document.querySelectorAll('.platform h4')[4].innerHTML = 'Violet';
+                document.querySelectorAll('.platform h4')[5].innerHTML = 'Gray';
+                document.querySelectorAll('.platform p')[0].innerHTML = 'Normal, stable';
+                document.querySelectorAll('.platform p')[1].innerHTML = 'Slippery';
+                document.querySelectorAll('.platform p')[2].innerHTML = 'Moving';
+                document.querySelectorAll('.platform p')[3].innerHTML = 'Disappears after 3 seconds';
+                document.querySelectorAll('.platform p')[4].innerHTML = 'Contains an item';
+                document.querySelectorAll('.platform p')[5].innerHTML = 'Already visited';
+                document.querySelectorAll('h2')[3].innerHTML = 'Items';
+                document.querySelectorAll('.item h4')[0].innerHTML = 'Spring';
+                document.querySelectorAll('.item h4')[1].innerHTML = 'Gem';
+                document.querySelectorAll('.item h4')[2].innerHTML = 'Star';
+                document.querySelectorAll('.item p')[0].innerHTML = 'Propels to a higher platform after 2 seconds';
+                document.querySelectorAll('.item p')[1].innerHTML = '+5 points';
+                document.querySelectorAll('.item p')[2].innerHTML = 'x2 points for 10 seconds';
                 document.querySelector('.footer p').innerHTML = 'Created with ❤️ by liveweeeb • 2026';
             } else {
                 document.querySelector('h1').innerHTML = 'SkyRush';
                 document.querySelector('.version').innerHTML = 'Version 2026.01.17.4 - Par liveweeeb';
-                document.querySelector('.download-btn span').innerHTML = 'Télécharger le jeu';
-                document.querySelectorAll('h2')[0].innerHTML = 'Salut ! 👋';
-                document.querySelectorAll('p')[1].innerHTML = '<strong>Le principe :</strong> Tu commences sur une plateforme et tu dois atteindre la suivante. Chaque nouvelle plateforme te donne un point. Si tu tombes trop bas (-10), c\'est fini. Simple mais addictif ! 😅';
-                document.querySelectorAll('h2')[1].innerHTML = 'Comment ça marche';
-                document.querySelectorAll('.control-group h3')[0].innerHTML = 'Pour bouger';
-                document.querySelectorAll('.control-group h3')[1].innerHTML = 'Actions utiles';
+                document.querySelectorAll('.download-btn span')[0].innerHTML = 'Télécharger';
+                document.getElementById('what').innerHTML = 'C\'est quoi ?';
+                document.getElementById('desc1').innerHTML = 'Un petit jeu de saut de plateformes en 3D. Tu sautes de plateforme en plateforme, c\'est simple mais ça devient vite addictif !';
+                document.getElementById('desc2').innerHTML = '<strong>Le but :</strong> Ne pas tomber et faire le meilleur score possible.';
+                document.querySelectorAll('h2')[1].innerHTML = 'Comment jouer';
+                document.querySelectorAll('.control-group h3')[0].innerHTML = 'Déplacement';
+                document.querySelectorAll('.control-group h3')[1].innerHTML = 'Actions';
                 document.querySelectorAll('.control-item span')[0].innerHTML = 'Avancer';
                 document.querySelectorAll('.control-item span')[2].innerHTML = 'Reculer';
                 document.querySelectorAll('.control-item span')[4].innerHTML = 'Gauche/Droite';
-                document.querySelectorAll('.control-item span')[6].innerHTML = 'Courir (plus loin)';
+                document.querySelectorAll('.control-item span')[6].innerHTML = 'Courir';
                 document.querySelectorAll('.control-item span')[8].innerHTML = 'Sauter';
                 document.querySelectorAll('.control-item span')[10].innerHTML = 'S\'accroupir';
-                document.querySelectorAll('.control-item span')[12].innerHTML = 'Aide en jeu';
+                document.querySelectorAll('.control-item span')[12].innerHTML = 'Aide';
                 document.querySelectorAll('.control-item span')[14].innerHTML = 'Debug';
-                document.querySelectorAll('h2')[2].innerHTML = 'Les différentes plateformes';
-                document.querySelectorAll('p')[2].innerHTML = 'Au début c\'est facile avec juste des plateformes orange, mais après ça se complique...';
-                document.querySelectorAll('.platform h4')[0].innerHTML = '🟠 Orange';
-                document.querySelectorAll('.platform h4')[1].innerHTML = '🔵 Bleue';
-                document.querySelectorAll('.platform h4')[2].innerHTML = '🟤 Marron';
-                document.querySelectorAll('.platform h4')[3].innerHTML = '⚪ Grise';
-                document.querySelectorAll('.platform p')[0].innerHTML = 'La classique, stable et sûre';
-                document.querySelectorAll('.platform p')[1].innerHTML = 'Glissante ! Accroupis-toi';
-                document.querySelectorAll('.platform p')[2].innerHTML = 'Elle bouge sans arrêt';
-                document.querySelectorAll('.platform p')[3].innerHTML = 'Déjà visitée (0 point)';
-                document.querySelector('.tips h3').innerHTML = 'Mes petits conseils 😉';
-                document.querySelectorAll('.tip')[0].innerHTML = '• Regarde bien où tu vas atterrir avant de sauter';
-                document.querySelectorAll('.tip')[1].innerHTML = '• Le sprint aide pour les gros sauts, mais attention à l\'atterrissage';
-                document.querySelectorAll('.tip')[2].innerHTML = '• Sur les plateformes bleues, reste accroupi sinon tu glisses';
-                document.querySelectorAll('.tip')[3].innerHTML = '• Pour les plateformes qui bougent, patience... timing is everything';
-                document.querySelectorAll('.tip')[4].innerHTML = '• Si tu rates, pas grave ! On apprend en tombant 🙃';
-                document.querySelectorAll('h2')[3].innerHTML = 'Infos pratiques';
-                document.querySelectorAll('p')[3].innerHTML = '<strong>Fait avec :</strong> C# et Raylib (merci Ramon !)<br><strong>Taille :</strong> Environ 2-3 MB<br><strong>Système :</strong> Windows uniquement pour l\'instant<br><strong>Installation :</strong> Aucune ! Tu télécharges et tu lances';
-                document.querySelectorAll('p')[4].innerHTML = 'J\'ai aussi ajouté un système de mise à jour automatique, comme ça tu auras toujours la dernière version avec les corrections de bugs.';
-                document.querySelectorAll('.download-btn span')[1].innerHTML = 'Allez, on teste ?';
-                document.querySelector('.footer p').innerHTML = 'Créé avec ❤️ par liveweeeb • 2026 • <a href="#" onclick="viewSource()" style="color: #74b9ff; text-decoration: none;">Code dispo sur GitHub</a>';
+                document.querySelectorAll('h2')[2].innerHTML = 'Les plateformes';
+                document.querySelectorAll('.platform h4')[0].innerHTML = 'Orange';
+                document.querySelectorAll('.platform h4')[1].innerHTML = 'Bleue';
+                document.querySelectorAll('.platform h4')[2].innerHTML = 'Marron';
+                document.querySelectorAll('.platform h4')[3].innerHTML = 'Verte';
+                document.querySelectorAll('.platform h4')[4].innerHTML = 'Violette';
+                document.querySelectorAll('.platform h4')[5].innerHTML = 'Grise';
+                document.querySelectorAll('.platform p')[0].innerHTML = 'Normale, stable';
+                document.querySelectorAll('.platform p')[1].innerHTML = 'Glissante';
+                document.querySelectorAll('.platform p')[2].innerHTML = 'Mouvante ';
+                document.querySelectorAll('.platform p')[3].innerHTML = 'Disparait après 3 secondes';
+                document.querySelectorAll('.platform p')[4].innerHTML = 'Contient un item';
+                document.querySelectorAll('.platform p')[5].innerHTML = 'Déjà visitée';
+                document.querySelectorAll('h2')[3].innerHTML = 'Les items';
+                document.querySelectorAll('.item h4')[0].innerHTML = 'Ressort';
+                document.querySelectorAll('.item h4')[1].innerHTML = 'Gemme';
+                document.querySelectorAll('.item h4')[2].innerHTML = 'Étoile';
+                document.querySelectorAll('.item p')[0].innerHTML = 'Propulse vers une plateforme plus haute après 2 secondes';
+                document.querySelectorAll('.item p')[1].innerHTML = '+5 points';
+                document.querySelectorAll('.item p')[2].innerHTML = 'x2 points pendant 10 secondes';
+                document.querySelectorAll('.download-btn span')[1].innerHTML = 'Télécharger maintenant';
+                document.querySelector('.footer p').innerHTML = 'Créé avec ❤️ par liveweeeb • 2026';
             }
         }
 
