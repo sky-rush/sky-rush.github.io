@@ -70,19 +70,55 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: #27ae60;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
             color: white;
-            padding: 12px 20px;
+            padding: 15px 25px;
             border: none;
-            border-radius: 5px;
+            border-radius: 12px;
             text-decoration: none;
             font-weight: bold;
             cursor: pointer;
             margin: 10px 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+            position: relative;
+            overflow: hidden;
+            font-size: 16px;
+        }
+
+        .download-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .download-btn:hover:before {
+            left: 100%;
         }
 
         .download-btn:hover {
-            background: #219a52;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(39, 174, 96, 0.6);
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .download-btn:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .download-btn.discord-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9) !important;
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .download-btn.discord-btn:hover {
+            background: linear-gradient(135deg, #2980b9, #1f5f99) !important;
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.6);
         }
 
         .download-btn svg {
@@ -244,6 +280,12 @@
                     <path d="M.5 9.9a.5.5 0 0 1 .5.5v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4a.5.5 0 0 1 1 0v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-4a.5.5 0 0 1 .5-.5zm7.5.5a.5.5 0 0 0 .5-.5V2.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 2.707V9.9a.5.5 0 0 0 .5.5z"/>
                 </svg>
             </button>
+            <button class="download-btn discord-btn" onclick="joinDiscord()">
+                <span>Discord</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019z"/>
+                </svg>
+            </button>
         </div>
 
         <h2 id="what">C'est quoi ?</h2>
@@ -351,6 +393,12 @@
                     <path d="M.5 9.9a.5.5 0 0 1 .5.5v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4a.5.5 0 0 1 1 0v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-4a.5.5 0 0 1 .5-.5zm7.5.5a.5.5 0 0 0 .5-.5V2.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 2.707V9.9a.5.5 0 0 0 .5.5z"/>
                 </svg>
             </button>
+            <button class="download-btn discord-btn" onclick="joinDiscord()">
+                <span>Rejoindre Discord</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019z"/>
+                </svg>
+            </button>
         </div>
 
         <div class="footer">
@@ -367,7 +415,8 @@
                 document.querySelector('h1').innerHTML = 'SkyRush';
                 document.querySelector('.version').innerHTML = 'Version 2026.01.18.1 - By liveweeeb';
                 document.querySelectorAll('.download-btn span')[0].innerHTML = 'Download';
-                document.querySelectorAll('.download-btn span')[1].innerHTML = 'Download now';
+                document.querySelectorAll('.download-btn span')[1].innerHTML = 'Join Discord';
+                document.querySelectorAll('.download-btn span')[2].innerHTML = 'Download now';
                 document.getElementById('what').innerHTML = 'What is it?';
                 document.getElementById('desc1').innerHTML = 'A small 3D platform jumping game. You jump from platform to platform, it\'s simple but it gets addictive quickly!';
                 document.getElementById('desc2').innerHTML = '<strong>The goal:</strong> Don\'t fall and get the best score possible.';
@@ -407,6 +456,8 @@
                 document.querySelector('h1').innerHTML = 'SkyRush';
                 document.querySelector('.version').innerHTML = 'Version 2026.01.18.1 - Par liveweeeb';
                 document.querySelectorAll('.download-btn span')[0].innerHTML = 'Télécharger';
+                document.querySelectorAll('.download-btn span')[1].innerHTML = 'Rejoindre Discord';
+                document.querySelectorAll('.download-btn span')[2].innerHTML = 'Télécharger maintenant';
                 document.getElementById('what').innerHTML = 'C\'est quoi ?';
                 document.getElementById('desc1').innerHTML = 'Un petit jeu de saut de plateformes en 3D. Tu sautes de plateforme en plateforme, c\'est simple mais ça devient vite addictif !';
                 document.getElementById('desc2').innerHTML = '<strong>Le but :</strong> Ne pas tomber et faire le meilleur score possible.';
@@ -444,6 +495,10 @@
                 document.querySelectorAll('.download-btn span')[1].innerHTML = 'Télécharger maintenant';
                 document.querySelector('.footer p').innerHTML = 'Créé avec ❤️ par liveweeeb • 2026';
             }
+        }
+
+        function joinDiscord() {
+            window.open('https://discord.gg/ukJegYrXWR', '_blank');
         }
 
         function downloadGame() {
