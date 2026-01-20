@@ -270,6 +270,122 @@
             color: #7f8c8d;
         }
 
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: -10px;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .os-selector {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .os-btn {
+            padding: 15px 25px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .os-btn.active {
+            border-color: #3498db;
+            background: #e8f4fd;
+        }
+
+        .version-toggle {
+            margin: 20px 0;
+        }
+
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #e74c3c;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .linux-instructions {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: left;
+            font-family: monospace;
+            border-left: 4px solid #3498db;
+        }
+
         @media (max-width: 600px) {
             body {
                 padding: 10px;
@@ -429,7 +545,113 @@
         </div>
     </div>
 
+    <!-- Modal de téléchargement -->
+    <div id="downloadModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Télécharger SkyRush</h2>
+            
+            <div class="os-selector">
+                <div class="os-btn active" onclick="selectOS('windows')" id="windows-btn">
+                    🪟 Windows
+                </div>
+                <div class="os-btn" onclick="selectOS('linux')" id="linux-btn">
+                    🐧 Linux
+                </div>
+            </div>
+            
+            <div class="version-toggle">
+                <label>Stable</label>
+                <label class="toggle">
+                    <input type="checkbox" id="versionToggle" onchange="toggleVersion()">
+                    <span class="slider"></span>
+                </label>
+                <label>Beta</label>
+            </div>
+            
+            <div id="linuxInstructions" class="linux-instructions" style="display: none;">
+                <p><strong>Instructions Linux :</strong></p>
+                <code>chmod +x Skyrush<br>./Skyrush</code>
+            </div>
+            
+            <button class="download-btn" onclick="startDownload()" id="finalDownloadBtn">
+                <span>Télécharger Windows Stable</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4a.5.5 0 0 1 1 0v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-4a.5.5 0 0 1 .5-.5zm7.5.5a.5.5 0 0 0 .5-.5V2.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 2.707V9.9a.5.5 0 0 0 .5.5z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
     <script>
+        // Variables de liens de téléchargement
+        const windows_stable = 'https://github.com/sky-rush/sky-rush.github.io/releases/download/2026.01.18.1/Skyrush_2026.01.18.1.zip';
+        const windows_beta = 'https://github.com/sky-rush/sky-rush.github.io/releases/download/2026.01.20.BETA1/Skyrush_2026.01.20.BETA1_win64.zip';
+
+        
+        const linux_stable = 'https://liveweeeb13.github.io/message/?message=Does%20not%20exist';
+        const linux_beta = 'https://github.com/sky-rush/sky-rush.github.io/releases/download/2026.01.20.BETA1/Skyrush_2026.01.20.BETA1_linux64.zip';
+        
+        let selectedOS = 'windows';
+        let isBeta = false;
+        
+        function downloadGame() {
+            document.getElementById('downloadModal').style.display = 'block';
+        }
+        
+        function closeModal() {
+            document.getElementById('downloadModal').style.display = 'none';
+        }
+        
+        function selectOS(os) {
+            selectedOS = os;
+            document.querySelectorAll('.os-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(os + '-btn').classList.add('active');
+            
+            if (os === 'linux') {
+                document.getElementById('linuxInstructions').style.display = 'block';
+            } else {
+                document.getElementById('linuxInstructions').style.display = 'none';
+            }
+            
+            updateDownloadButton();
+        }
+        
+        function toggleVersion() {
+            isBeta = document.getElementById('versionToggle').checked;
+            updateDownloadButton();
+        }
+        
+        function updateDownloadButton() {
+            const btn = document.getElementById('finalDownloadBtn');
+            const span = btn.querySelector('span');
+            const version = isBeta ? 'Beta' : 'Stable';
+            const osName = selectedOS === 'windows' ? 'Windows' : 'Linux';
+            
+            span.textContent = `Télécharger ${osName} ${version}`;
+        }
+        
+        function startDownload() {
+            let downloadUrl;
+            
+            if (selectedOS === 'windows') {
+                downloadUrl = isBeta ? windows_beta : windows_stable;
+            } else {
+                downloadUrl = isBeta ? linux_beta : linux_stable;
+            }
+            
+            window.open(downloadUrl, '_blank');
+            closeModal();
+        }
+        
+        // Fermer le modal en cliquant à l'extérieur
+        window.onclick = function(event) {
+            const modal = document.getElementById('downloadModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
         function switchLang(lang) {
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(lang + '-btn').classList.add('active');
@@ -522,10 +744,6 @@
 
         function joinDiscord() {
             window.open('https://discord.gg/ukJegYrXWR', '_blank');
-        }
-
-        function downloadGame() {
-            window.open('https://github.com/sky-rush/sky-rush.github.io/releases/download/2026.01.18.1/Skyrush_2026.01.18.1.zip', '_blank');
         }
 
     </script>
